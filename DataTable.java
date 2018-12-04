@@ -1,4 +1,4 @@
-//import java.text.*;
+import java.time.*;
 
 class HockeyPlayer{
 	//fields
@@ -7,12 +7,14 @@ class HockeyPlayer{
 	private String birthplace;
 	private int gamesPlayed;
 	private int winsPoints;
+	private LocalDate date;
 	
 	//constructors
 	public HockeyPlayer(String lastName, String position, String birthplace){
 		this.lastName = lastName;
 		this.position = position;	
 		this.birthplace = birthplace;
+		this.date = LocalDate.now();
 	}
 	
 	public HockeyPlayer(HockeyPlayer hp, int gamesPlayed, int winsPoints){
@@ -61,6 +63,10 @@ class HockeyPlayer{
 	
 	public int getWinsPoints(){
 		return winsPoints;	
+	}
+	
+	public LocalDate getDate(){
+		return date;	
 	}
 	
 	@Override
@@ -150,7 +156,7 @@ class Goalie extends HockeyPlayer{
 	
 	@Override
 	public String toString(){
-		return String.format("%-15s | %-15s | %-14d | %-10d | %-14f | %-8f %n", getLastName(), getPosition(), getGamesPlayed(), getWinsPoints(), saveP, avgWinsGP);	
+		return String.format("%-15s | %-15s | %-14d | %-10d | %-14f | %-16f | %-14tF %n", getLastName(), getPosition(), getGamesPlayed(), getWinsPoints(), saveP, avgWinsGP, getDate());	
 	}
 	
 }
@@ -236,7 +242,7 @@ class Skater extends HockeyPlayer{
 	
 	@Override 
 	public String toString(){
-		return String.format("%-15s | %-15s | %-14d | %-10d | %-14f | %-8f %n", getLastName(), getPosition(), getGamesPlayed(), getWinsPoints(), shotP, avgPtsGP);	
+		return String.format("%-15s | %-15s | %-14d | %-10d | %-14f | %-16f | %-14tF %n", getLastName(), getPosition(), getGamesPlayed(), getWinsPoints(), shotP, avgPtsGP, getDate());	
 	}
 	
 }
@@ -285,8 +291,8 @@ public class DataTable{
 	Roster r = new Roster();
 	System.out.println("\n**** WASHINGTON CAPITALS:  2018-2019 Regular Season Stats ****\n");	
 	
-	System.out.println(String.format("%-15s | %-15s | %-5s | %-5s | %-10s | %-10s", "NAME", "POSITION", "GAMES PLAYED: ",  "PTS/WINS: ", "SHOT/SAVE %:  ", "AVG PTS/WINS GP:"));
-	System.out.println("***************************************************************************************************");
+	System.out.println(String.format("%-15s | %-15s | %-5s | %-5s | %-10s | %-10s | %-14s", "NAME: ", "POSITION: ", "GAMES PLAYED: ",  "PTS/WINS: ", "SHOT/SAVE %:  ", "AVG PTS/WINS GP:", "LAST UPDATED: "));
+	System.out.println("*******************************************************************************************************************");
 		for(Object o : r.roster2018){
 			System.out.print(o);
 		}
