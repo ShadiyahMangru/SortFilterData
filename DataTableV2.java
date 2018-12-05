@@ -364,8 +364,11 @@ class Roster{
 			
 		HockeyPlayer to = new HockeyPlayer("Oshie", "Right Wing", "USA");
 		Skater to2018 = new Skater(to, 18, 14, 40, 9);
+		
+		HockeyPlayer test = new HockeyPlayer("TEST", "Goalie", "Italy");
+		Goalie test2018 = new Goalie(test, 5, 4, 79, 75);
 			
-		HockeyPlayer[] rosterArray2018 = {ek2018, ab2018, tw2018, bh2018, jc2018, ao2018, pc2018, mb2018, nb2018, to2018};
+		HockeyPlayer[] rosterArray2018 = {ek2018, ab2018, tw2018, bh2018, jc2018, ao2018, pc2018, mb2018, nb2018, to2018, test2018};
 		roster2018 = new ArrayList<HockeyPlayer>(Arrays.asList(rosterArray2018));	
 	}
 	
@@ -380,14 +383,25 @@ public class DataTableV2{
 	private static int ctr;
 	
 	public static void createTable(int sortNum){
-		System.out.println(String.format("%-15s | %-15s | %-5s | %-5s | %-10s | %-10s | %-14s", "NAME: ", "POSITION: ", "GAMES PLAYED: ",  "PTS/WINS: ", "SHOT/SAVE %:  ", "AVG PTS/WINS GP:", "LAST UPDATED: "));
+		System.out.println(String.format("%-15s | %-15s | %-5s | %-10s | %-14s | %-16s | %-14s", "NAME: ", "POSITION: ", "GAMES PLAYED: ",  "PTS: ", "SHOT %:  ", "AVG PTS/GP:", "LAST UPDATED: "));
 		System.out.println("*******************************************************************************************************************");
 		Roster r = new Roster();
 		SortBy sb = new SortBy();
 		sb.setSortByThis(sortNum);
 		Collections.sort(r.getRoster2018());
-			for(Object o : r.getRoster2018()){
-				System.out.print(o);
+			for(HockeyPlayer o : r.getRoster2018()){
+				if(o.getPosition() != "Goalie"){
+					System.out.print(o);
+				}
+			}
+		
+		System.out.println("\n");
+		System.out.println(String.format("%-15s | %-15s | %-5s | %-10s | %-14s | %-16s | %-14s", "NAME: ", "POSITION: ", "GAMES PLAYED: ",  "WINS: ", "SAVE %:  ", "AVG WINS/GP:", "LAST UPDATED: "));
+		System.out.println("*******************************************************************************************************************");
+		for(HockeyPlayer o : r.getRoster2018()){
+				if(o.getPosition().equals("Goalie")){
+					System.out.print(o);
+				}
 			}
 	}
 	
@@ -398,9 +412,9 @@ public class DataTableV2{
 		System.out.println("**** WASHINGTON CAPITALS:  2018-2019 Regular Season Stats ****");
 		if(ctr == 1){
 			System.out.println();
-			createTable(1);	
+			createTable(4);	
 		}
-		System.out.println("\nSelect a sort by option:\n1.) Last Name (Default) \n2.) Position\n3.) Games Played \n4.) Wins / Points \n\n5.) Exit");
+		System.out.println("\nSelect a sort by option:\n1.) Last Name \n2.) Position\n3.) Games Played \n4.) Wins / Points (Default)\n\n5.) Exit");
 		System.out.println("\n*********************************************");
 		
 		try{
@@ -439,7 +453,7 @@ public class DataTableV2{
 	}
 	
 	public static void main(String... args){
-		DataTable dt = new DataTable();
+		DataTableV2 dt = new DataTableV2();
 		dt.userOptions();
 	}
 }
