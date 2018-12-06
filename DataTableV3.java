@@ -330,15 +330,19 @@ class SkaterCompare implements Comparator<Skater>{
 	
 	@Override
 	public int compare(Skater s1, Skater s2) { 
-		if(sortByThis == 5){		
-			if (s1.getShotP() < s2.getShotP()) return 1; 
-			if (s1.getShotP() > s2.getShotP()) return -1; 
+		if(sortByThis == 5){	
+			if (s1.getShotP() < s2.getShotP()) 
+				return 1; 
+			if (s1.getShotP() == s2.getShotP()) 
+				return 0; 
 		}
 		else if(sortByThis == 6){
-			if (s1.getAvgPtsGP() < s2.getAvgPtsGP()) return 1; 
-			if (s1.getAvgPtsGP() > s2.getAvgPtsGP()) return -1; 	
+			if (s1.getAvgPtsGP() < s2.getAvgPtsGP()) 
+				return 1; 
+			if (s1.getAvgPtsGP() == s2.getAvgPtsGP()) 
+				return 0; 	
 		}
-			return 0;	
+			return -1;	
 		} 	
 }
 
@@ -409,8 +413,14 @@ class Roster{
 		
 		HockeyPlayer test = new HockeyPlayer("TEST", "Goalie", "Italy");
 		Goalie test2018 = new Goalie(test, 5, 4, 79, 75);
+		
+		HockeyPlayer dor = new HockeyPlayer("Orlov", "Defense", "Russia");
+		Skater dor2018 = new Skater(dor, 27, 9, 37, 2);
+		
+		HockeyPlayer jv = new HockeyPlayer("Vrana", "Left Wing", "Czech Republic");
+		Skater jv2018 = new Skater(jv, 27, 16, 47, 8);
 			
-		HockeyPlayer[] rosterArray2018 = {ek2018, ab2018, tw2018, bh2018, jc2018, ao2018, pc2018, mb2018, nb2018, to2018, test2018};
+		HockeyPlayer[] rosterArray2018 = {ek2018, ab2018, tw2018, bh2018, jc2018, ao2018, pc2018, mb2018, nb2018, to2018, test2018, dor2018, jv2018};
 		roster2018 = new ArrayList<HockeyPlayer>(Arrays.asList(rosterArray2018));	
 	}
 	
@@ -459,7 +469,7 @@ public class DataTableV3{
 		}
 		SkaterCompare sc = new SkaterCompare(sortNum);
 		Collections.sort(skaterRoster2018, sc);
-			for(HockeyPlayer o : r.getRoster2018()){
+			for(HockeyPlayer o : skaterRoster2018){
 				if(o.getPosition() != "Goalie"){
 					System.out.print(o);
 				}
@@ -478,7 +488,7 @@ public class DataTableV3{
 		Collections.sort(goalieRoster2018, gc);
 		System.out.println(String.format("%-15s | %-15s | %-5s | %-10s | %-14s | %-16s | %-14s", "NAME: ", "POSITION: ", "GAMES PLAYED: ",  "WINS: ", "SAVE %:  ", "AVG WINS/GP:", "LAST UPDATED: "));
 		System.out.println("*******************************************************************************************************************");
-		for(HockeyPlayer o : r.getRoster2018()){
+		for(HockeyPlayer o : goalieRoster2018){
 				if(o.getPosition().equals("Goalie")){
 					System.out.print(o);
 				}
